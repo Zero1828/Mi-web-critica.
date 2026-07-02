@@ -1,6 +1,29 @@
-:root { --amarillo: #fcd116; --azul: #003893; --rojo: #ce1126; }
+:root { 
+    --amarillo: #fcd116; 
+    --azul: #003893; 
+    --rojo: #ce1126; 
+}
 
-body { font-family: 'Segoe UI', sans-serif; background: #121212; color: #fff; margin: 0; }
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    color: #fff;
+    background: linear-gradient(125deg, #fcd116, #003893, #ce1126, #000000);
+    background-size: 800% 800%;
+    animation: bucleBandera 15s ease infinite;
+    min-height: 100vh;
+    font-size: 1.2em;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+@keyframes bucleBandera {
+    0% { background-position: 0% 50%; }
+    25% { background-position: 50% 100%; }
+    50% { background-position: 100% 50%; }
+    75% { background-position: 50% 0%; }
+    100% { background-position: 0% 50%; }
+}
 
 header { padding: 40px; text-align: center; border-bottom: 5px solid var(--amarillo); }
 
@@ -9,12 +32,32 @@ header { padding: 40px; text-align: center; border-bottom: 5px solid var(--amari
 .seccion-preguntas { padding: 40px; background: #1e1e1e; }
 
 button {
-    display: block; width: 80%; margin: 15px auto; padding: 15px;
-    background-color: var(--azul); color: white;
-    border: 2px solid var(--amarillo); cursor: pointer;
-    font-size: 1.1em; transition: 0.3s;
+    display: block; 
+    width: 80%; 
+    margin: 15px auto; 
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.6); 
+    color: white;
+    border: 2px solid var(--amarillo); 
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.1em; 
+    transition: 0.4s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-button:hover { background-color: var(--rojo); }
+button:hover { 
+    background-color: var(--azul); 
+    border-color: var(--rojo);
+    transform: scale(1.05);
+}
 
-footer { text-align: center; padding: 20px; border-top: 1px solid #555; }
+h1, h2 {
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+p {
+    font-weight: 600;
+    color: #f0f0f0;
+}
