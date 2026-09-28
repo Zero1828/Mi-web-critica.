@@ -61,3 +61,31 @@ p {
     font-weight: 600;
     color: #f0f0f0;
 }
+.seccion-donativo {
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    border-top: 3px solid var(--rojo);
+}
+
+.btn-donar {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 15px 30px;
+    background-color: var(--rojo);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 1.2em;
+    border: 2px solid var(--amarillo);
+    transition: 0.4s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.btn-donar:hover {
+    background-color: var(--amarillo);
+    color: #000;
+    transform: scale(1.08);
+    border-color: white;
+}
