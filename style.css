@@ -127,9 +127,7 @@ p {
     left: 50%;
     transform: translateX(-50%);
     font-size: 32px; /* Tamaño del objeto de basura */
-    animation: caer 2s infinite linear; /* Animación de caída */
 }
-
 /* Animación de caída */
 @keyframes caer {
     0% { top: -50px; }
