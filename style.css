@@ -89,3 +89,57 @@ p {
     transform: scale(1.08);
     border-color: white;
 }
+/* Estilos para la sección del juego */
+.seccion-juego {
+    text-align: center;
+    background-color: #0a0a0a; /* Fondo oscuro del sitio */
+    color: #e0e0e0;
+    padding: 40px 20px;
+    border-top: 2px solid #2e7d32; /* Verde ecologista */
+}
+
+#juego-contenedor {
+    position: relative;
+    width: 90%; /* Ancho responsivo */
+    max-width: 400px; /* Tamaño máximo para pantallas grandes */
+    height: 300px; /* Altura fija del área de juego */
+    background-color: #1a1a1a;
+    margin: 20px auto; /* Centrado */
+    overflow: hidden; /* Para que nada se salga */
+    border-radius: 10px;
+    touch-action: none; /* Importante para que el toque no haga zoom/scroll */
+    cursor: crosshair;
+}
+
+#arbol {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 48px; /* Tamaño del árbol */
+    z-index: 10;
+    transition: left 0.05s linear; /* Movimiento suave */
+}
+
+#basura {
+    position: absolute;
+    top: -50px; /* Empieza arriba */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 32px; /* Tamaño del objeto de basura */
+    animation: caer 2s infinite linear; /* Animación de caída */
+}
+
+/* Animación de caída */
+@keyframes caer {
+    0% { top: -50px; }
+    100% { top: 350px; } /* Pasa de arriba a abajo */
+}
+
+#marcador {
+    margin-top: 15px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #81c784;
+}
+
