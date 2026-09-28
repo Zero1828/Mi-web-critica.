@@ -1,80 +1,102 @@
-<script>
-    const contenedor = document.getElementById('juego-contenedor');
-    const arbol = document.getElementById('arbol');
-    const basura = document.getElementById('basura');
-    const puntuacionSpan = document.getElementById('puntuacion');
-    let puntuacion = 0;
-    let juegoActivo = true;
-    let objetosMalos = ['🚬', '🏭', '🗑️']; // Lista de objetos a esquivar
+// Lógica del Minijuego: ¡Protege al Arbolito!
+const contenedor = document.getElementById('juego-contenedor');
+const arbol = document.getElementById('arbol');
+const basura = document.getElementById('basura');
+const puntuacionSpan = document.getElementById('puntuacion');
 
-    // Función de movimiento para pantallas táctiles y mouse
-    function moverArbol(event) {
-        if (!juegoActivo) return;
-        
-        // Obtiene la posición X del toque o del mouse
-        let posicionX;
-        if (event.touches) {
-            posicionX = event.touches[0].clientX; // Tocar pantalla
-        } else {
-            posicionX = event.clientX; // Usar mouse
-        }
+let puntuacion = 0;
+let juegoActivo = true;
+let objetosMalos = ['🚬', '🏭', '🗑️'];
 
-        const rectContenedor = contenedor.getBoundingClientRect();
-        let relativeX = posicionX - rectContenedor.left;
-        
-        // Limita el movimiento para que el árbol no se salga
-        const anchoArbol = arbol.offsetWidth;
-        relativeX = Math.max(anchoArbol / 2, Math.min(rectContenedor.width - anchoArbol / 2, relativeX));
+// Posición horizontal del árbol (porcentaje o píxeles)
+let arbolX = contenedor.clientWidth / 2 - 24; // centrado inicial
+arbol.style.left = `${arbolX}px`;
 
-        // Actualiza la posición del árbol
-        arbol.style.left = `${relativeX}px`;
+// Control de movimiento táctil y del ratón
+function moverArbol(event) {
+    if (!juegoActivo) return;
+    
+    // Evita que la página haga scroll o zoom al tocar el juego
+    event.preventDefault();
+
+    let posicionX;
+    if (event.touches) {
+        posicionX = event.touches[0].clientX; // Toco pantalla en móvil
+    } else {
+        posicionX = event.clientX; // Mouse en PC
     }
 
-    // Event listeners para el movimiento
-    contenedor.addEventListener('touchmove', moverArbol, { passive: false });
-    contenedor.addEventListener('mousemove', moverArbol);
+    const rectContenedor = contenedor.getBoundingClientRect();
+    let relativeX = posicionX - rectContenedor.left;
+    
+    // Limitar para que el árbol no salga del contenedor
+    const anchoArbol = arbol.offsetWidth;
+    arbolX = Math.max(0, Math.min(rectContenedor.width - anchoArbol, relativeX - (anchoArbol / 2)));
 
-    // Detección de colisiones y actualización del juego
-    basura.addEventListener('animationiteration', () => {
-        if (!juegoActivo) return;
+    arbol.style.left = `${arbolX}px`;
+}
 
-        // Subir puntuación cada vez que pasa un objeto
+// IMPORTANTE: { passive: false } permite usar event.preventDefault() en celulares
+contenedor.addEventListener('touchmove', moverArbol, { passive: false });
+contenedor.addEventListener('touchstart', moverArbol, { passive: false });
+contenedor.addEventListener('mousemove', moverArbol);
+
+// Coordenadas y velocidad de la basura manejadas por JavaScript para colisión perfecta
+let basuraY = -50;
+let basuraX = Math.random() * (contenedor.clientWidth - 40);
+let velocidadCaida = 3; 
+
+basura.style.position = 'absolute';
+
+function reiniciarBasura() {
+    basuraY = -50;
+    basuraX = Math.random() * (contenedor.clientWidth - 40);
+    basura.style.left = `${basuraX}px`;
+    
+    // Cambiar objeto aleatorio
+    const objAleatorio = objetosMalos[Math.floor(Math.random() * objetosMalos.length)];
+    basura.innerText = objAleatorio;
+}
+
+// Bucle principal del juego (Animación y Colisiones)
+function actualizarJuego() {
+    if (!juegoActivo) return;
+
+    // Mover la basura hacia abajo
+    basuraY += velocidadCaida;
+    basura.style.top = `${basuraY}px`;
+    basura.style.left = `${basuraX}px`;
+
+    // Si la basura llega al fondo, suma punto y se reinicia arriba
+    if (basuraY > contenedor.clientHeight) {
         puntuacion++;
         puntuacionSpan.innerText = puntuacion;
+        reiniciarBasura();
 
-        // Cambiar el objeto aleatoriamente
-        const objAleatorio = objetosMalos[Math.floor(Math.random() * objetosMalos.length)];
-        basura.innerText = objAleatorio;
-
-        // Acelerar un poco la caída cada 5 puntos
+        // Aumentar dificultad cada 5 puntos
         if (puntuacion % 5 === 0) {
-            const velocidadActual = parseFloat(getComputedStyle(basura).animationDuration);
-            const nuevaVelocidad = Math.max(0.5, velocidadActual - 0.2);
-            basura.style.animationDuration = `${nuevaVelocidad}s`;
+            velocidadCaida += 0.5;
         }
-    });
-
-    // Bucle principal para verificar colisiones ( Game Over )
-    function verificarColision() {
-        if (!juegoActivo) return;
-
-        const arbolRect = arbol.getBoundingClientRect();
-        const basuraRect = basura.getBoundingClientRect();
-
-        // Comprobar si los rectángulos se superponen
-        if (
-            arbolRect.left < basuraRect.right &&
-            arbolRect.right > basuraRect.left &&
-            arbolRect.top < basuraRect.bottom &&
-            arbolRect.bottom > basuraRect.top
-        ) {
-            juegoActivo = false;
-            alert(`¡Oh no! El árbol absorbió demasiada contaminación. Puntuación final: ${puntuacion}. Recarga la página para intentarlo de nuevo.`);
-            basura.style.animationPlayState = 'paused'; // Detener animación
-        }
-        
-        requestAnimationFrame(verificarColision); // Repetir
     }
 
-    verificarColision(); // Iniciar detección
-</script>
+    // --- DETECCIÓN DE COLISIÓN EXACTA ---
+    const arbolRect = arbol.getBoundingClientRect();
+    const basuraRect = basura.getBoundingClientRect();
+
+    if (
+        arbolRect.left < basuraRect.right &&
+        arbolRect.right > basuraRect.left &&
+        arbolRect.top < basuraRect.bottom &&
+        arbolRect.bottom > basuraRect.top
+    ) {
+        juegoActivo = false;
+        alert(`¡Oh no! El árbol absorbió demasiada contaminación. Puntuación final: ${puntuacion}. Recarga la página para intentarlo de nuevo.`);
+        return; // Detiene el bucle
+    }
+
+    requestAnimationFrame(actualizarJuego);
+}
+
+// Iniciar juego
+reiniciarBasura();
+requestAnimationFrame(actualizarJuego);
