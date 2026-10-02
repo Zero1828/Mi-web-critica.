@@ -21,26 +21,26 @@
         <!-- Sección Paisajes y Agua -->
         <section class="bloque-info">
             <h2>El Agua: Fuente de Vida</h2>
-            <img src="Colombia-water-780.jpg">
-            <img src="cocora-valley.jpg">
+            <img src="Colombia-water-780.jpg" alt="Agua en Colombia">
+            <img src="cocora-valley.jpg" alt="Valle de Cocora">
             <p>Los páramos y ríos de Colombia son la verdadera sangre del país, actuando como fábricas naturales de agua que abastecen a millones de personas y sostienen ecosistemas únicos en el mundo. Sin embargo, la minería ilegal, la contaminación industrial y la crisis climática global amenazan gravemente estas fuentes hídricas vitales, recordándonos que sin una protección radical de nuestros recursos hídricos, simplemente no hay futuro posible para las próximas generaciones.</p>
         </section>
 
         <!-- Sección Crítica (Contaminación) -->
         <section class="bloque-critica">
             <h2>El Costo del Extractivismo</h2>
-            <img src="deforestacion-amazonia-reporte-fcds.jpg">
+            <img src="deforestacion-amazonia-reporte-fcds.jpg" alt="Deforestación Amazonía">
             <p>La ambición por unos barriles de petróleo está destruyendo lo que tardó siglos en formarse. La ambición desmedida por la extracción de petróleo y minerales está devorando la riqueza natural de Colombia a un ritmo alarmante, acelerando la deforestación y destruyendo en pocos días ecosistemas que tardaron siglos en formarse. Este modelo extractivista no solo contamina las fuentes de agua y fractura las comunidades locales, sino que hipoteca el futuro ambiental del país a cambio de ganancias económicas temporales y superficiales.</p>
         </section>
 
-                <!-- Nueva Sección: Minijuego "Arbolito Protector" -->
+        <!-- Nueva Sección: Minijuego "Arbolito Protector" -->
         <section class="seccion-juego">
             <h2>Minijuego: ¡Protege al Arbolito!</h2>
             <p>Toca la pantalla y mueve el dedo para esquivar la contaminación y ayudar al árbol a crecer fuerte.</p>
             
             <div id="juego-contenedor">
                 <div id="arbol">🌳</div>
-                <div id="basura" class="mover">🚬</div> <!-- Objeto inicial -->
+                <div id="basura" class="mover">🚬</div>
             </div>
             
             <div id="marcador">Puntos: <span id="puntuacion">0</span></div>
@@ -55,20 +55,73 @@
             <button onclick="alert('Podemos organizarnos colectivamente para exigir veeduría ambiental, apoyar activamente a las comunidades locales que defienden sus territorios y reducir drásticamente el consumismo masivo. El cambio real empieza cuando dejamos la indiferencia y vigilamos las políticas extractivistas.')">¿Qué podemos hacer?</button>
             <button onclick="alert('Puedes empezar hoy mismo reduciendo tu consumo de plásticos de un solo uso, ahorrando agua en casa, separando tus residuos orgánicos y compartiendo esta información para despertar la conciencia de otros. Las pequeñas acciones diarias sí suman cuando se vuelven colectivas. En palabras simples: Reduce tu consumo, infórmate y difunde la verdad.')">¿Cómo ayudo con lo mínimo?</button>
         </section>
-                 <!-- Sección de Donativo / Apoyo -->
+
+        <!-- NUEVA SECCIÓN: Paso 1 - Autenticación y Registro con Firebase -->
+        <section class="seccion-auth-wrapper">
+            <h2>Únete a la Comunidad</h2>
+            <p>Crea tu cuenta o inicia sesión para acceder a las próximas secciones de la plataforma.</p>
+            
+            <div class="auth-container">
+                <div class="auth-box">
+                    <div class="auth-tabs">
+                        <button id="tab-login" class="tab-btn active">Iniciar Sesión</button>
+                        <button id="tab-register" class="tab-btn">Registrarse</button>
+                    </div>
+
+                    <!-- Formulario de Login -->
+                    <form id="form-login" class="auth-form">
+                        <div class="input-group">
+                            <label for="login-email">Correo Electrónico</label>
+                            <input type="email" id="login-email" required placeholder="tu@correo.com">
+                        </div>
+                        <div class="input-group">
+                            <label for="login-password">Contraseña</label>
+                            <input type="password" id="login-password" required placeholder="••••••••">
+                        </div>
+                        <button type="submit" class="btn-submit">Entrar</button>
+                    </form>
+
+                    <!-- Formulario de Registro -->
+                    <form id="form-register" class="auth-form hidden">
+                        <div class="input-group">
+                            <label for="reg-username">Nombre de usuario</label>
+                            <input type="text" id="reg-username" required placeholder="Ej. andres_dev">
+                        </div>
+                        <div class="input-group">
+                            <label for="reg-email">Correo Electrónico</label>
+                            <input type="email" id="reg-email" required placeholder="tu@correo.com">
+                        </div>
+                        <div class="input-group">
+                            <label for="reg-password">Contraseña (mín. 6 caracteres)</label>
+                            <input type="password" id="reg-password" required placeholder="••••••••">
+                        </div>
+                        <div class="input-group">
+                            <label for="reg-birthyear">Año de nacimiento</label>
+                            <input type="number" id="reg-birthyear" required min="1900" max="2026" placeholder="Ej. 2012">
+                        </div>
+                        <button type="submit" class="btn-submit">Registrarse</button>
+                    </form>
+
+                    <div id="auth-message" class="auth-message"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Donativo / Apoyo -->
         <section class="seccion-donativo">
             <h2>Apoya este Proyecto</h2>
             <p>Este sitio web es totalmente independiente y busca fomentar la reflexión crítica sin censura. Si valoras este espacio y quieres apoyar su mantenimiento y crecimiento, puedes hacer un aporte voluntario.</p>
-            <p><a href="https://www.paypal.com/donate/?hosted_button_id=ATZJSNE2Z4FEE" target="_blank">👉 Haz clic aquí para donar en PayPal (Se abrirá en una pestaña nueva)</a></p>
+            <p><a href="https://www.paypal.com/donate/?hosted_button_id=ATZJSNE2Z4FEE" target="_blank" class="btn-donar">👉 Haz clic aquí para donar en PayPal</a></p>
         </section>
-
-
 
     </main>
 
     <footer>
         <p>Este sitio es una herramienta para la reflexión política y ambiental.</p>
     </footer>
+
+    <!-- Script principal de Firebase como Módulo ES6 -->
+    <script type="module" src="app.js"></script>
 
 </body>
 </html>
