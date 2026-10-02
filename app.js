@@ -2,6 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 // Configuración de tu proyecto Firebase (Tus credenciales reales de Nexus-S)
 const firebaseConfig = {
@@ -100,3 +101,32 @@ formLogin.addEventListener("submit", async (e) => {
         authMessage.className = "auth-message error";
     }
 });
+const authSection = document.getElementById("auth-section");
+const appSection = document.getElementById("app-section");
+const btnLogout = document.getElementById("btn-logout");
+
+// Escuchar cambios en el estado de autenticación de Firebase
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // ¡El usuario ha iniciado sesión! Ocultamos el login y mostramos la app
+        authSection.style.display = "none";
+        appSection.style.display = "block";
+        console.log("Usuario activo:", user.email);
+    } else {
+        // No hay sesión activa. Mostramos el login y ocultamos la app
+        authSection.style.display = "block";
+        appSection.style.display = "none";
+    }
+});
+
+// Lógica para el botón de Cerrar Sesión (opcional pero muy útil)
+if (btnLogout) {
+    btnLogout.addEventListener("click", async () => {
+        try {
+            await signOut(auth);
+            console.log("Sesión cerrada correctamente");
+        } catch (error) {
+            console.error("Error al cerrar sesión:", error);
+        }
+    });
+}
