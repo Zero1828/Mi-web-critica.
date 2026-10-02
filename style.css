@@ -141,3 +141,122 @@ p {
     color: #81c784;
 }
 
+/* Estilos para la sección de Autenticación integrados */
+.seccion-auth-wrapper {
+    padding: 50px 20px;
+    background: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    border-top: 3px solid var(--azul);
+}
+
+.seccion-auth-wrapper h2 {
+    margin-bottom: 10px;
+}
+
+.seccion-auth-wrapper p {
+    margin-bottom: 25px;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.auth-box {
+    background-color: #1a1a1a;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--amarillo);
+}
+
+.auth-tabs {
+    display: flex;
+    margin-bottom: 25px;
+    background: #0f172a;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    padding: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background: var(--azul);
+    color: #ffffff;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: var(--amarillo);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    background: #0a0a0a;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+    border-color: var(--amarillo);
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background: var(--rojo);
+    border: 2px solid var(--amarillo);
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.btn-submit:hover {
+    background: var(--amarillo);
+    color: #000;
+}
+
+.hidden {
+    display: none;
+}
+
+.auth-message {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.auth-message.error {
+    color: #ef4444;
+}
+
+.auth-message.success {
+    color: #22c55e;
+}
