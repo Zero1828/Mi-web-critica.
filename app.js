@@ -62,7 +62,10 @@ formRegister.addEventListener("submit", async (e) => {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        // 2. Guardar perfil estructurado en la colección "usuarios" de Firestore
+        // 2. Enviar correo de verificación oficial de Firebase (¡ESTA ES LA LÍNEA NUEVA QUE AGREGAMOS!)
+        await sendEmailVerification(user);
+
+        // 3. Guardar perfil estructurado en la colección "usuarios" de Firestore
         await setDoc(doc(db, "usuarios", user.uid), {
             uid: user.uid,
             username: username,
@@ -72,7 +75,7 @@ formRegister.addEventListener("submit", async (e) => {
             createdAt: new Date().toISOString()
         });
 
-        authMessage.textContent = "¡Cuenta creada con éxito! Bienvenido a la plataforma.";
+        authMessage.textContent = "¡Cuenta creada con éxito! Te hemos enviado un correo de verificación. Revisa tu bandeja de entrada.";
         authMessage.className = "auth-message success";
     } catch (error) {
         console.error("Error en el registro:", error);
@@ -80,7 +83,6 @@ formRegister.addEventListener("submit", async (e) => {
         authMessage.className = "auth-message error";
     }
 });
-
 // Lógica de Inicio de Sesión
 formLogin.addEventListener("submit", async (e) => {
     e.preventDefault();
